@@ -30,11 +30,10 @@ graph LR
     A["Microservice (STDOUT)"] --> B["Docker Driver (files)"]
     B --> C["FluentBit (Read logs from filesystem and send it)"]
     C --> D["OpenTelemetry Collector<br>(Logdedup Processor)<br><i>New deploymnet unit</i>"]
-    D --> E["FluentBit (OTLP/HTTP → GELF)<br><i>New deploymnet unit</i>"]
-    E --> F["Graylog"]
+    D --> E["Graylog"]
 
-    classDef newDeployment fill:#ffcccc,stroke:#cc0000,stroke-width:2px;
-    class D,E newDeployment
+    classDef newDeployment fill:#cc0000,stroke:#cc0000,stroke-width:2px;
+    class D newDeployment
 ```
 
 Fields `request_id` / `trace_id` have to be excluded from deduplication criteria, for keep transparency in case of search logs by request_id or trace_id. 
