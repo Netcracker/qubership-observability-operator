@@ -24,11 +24,12 @@ None
 
 ## Context
 We need to publish existing Markdown documentation stored in `docs/` to GitHub Pages while keeping:
-• One repository for code + docs
-• Pure-Markdown sources (minimal config files)
-• CI-only build – no committed `/site` artifacts
-• Clean Git history
-• Built-in versioning of releases
+- One repository for code + docs
+- Pure-Markdown sources (minimal config files)
+- Powerful search
+- CI-only build – no committed `/site` artifacts
+- Clean Git history
+- Built-in versioning of releases
 
 Several generators were investigated: MkDocs, Hugo, Jekyll, Docusaurus, VuePress, Docsify (see Justification).
 
