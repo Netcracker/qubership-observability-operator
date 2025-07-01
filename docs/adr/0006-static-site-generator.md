@@ -49,22 +49,22 @@ We will adopt **MkDocs Material + Mike + GitHub Actions → Pages artifact**.
 7. Strong community support: MkDocs Material (23.4k★)
 
 Alternatives rejected:
-   • **Hugo** (81.2k★) – most popular and fastest generator, but requires hunting/configuring many plugins, basic themes need styling work, versioning only via custom scripts.
-   • **Jekyll** (50.1k★) – native to GitHub Pages but Ruby toolchain and lacks versioning.
-   • **Docusaurus** (60.1k★) – React/MDX stack heavier than needed.
-   • **VuePress** (22.8k★) / **Docsify** (29.5k★) – weaker plugin ecosystem for versioning & search.
+- **Hugo** (81.2k★) – most popular and fastest generator, but requires hunting/configuring many plugins, basic themes need styling work, versioning only via custom scripts.
+- **Jekyll** (50.1k★) – native to GitHub Pages but Ruby toolchain and lacks versioning.
+- **Docusaurus** (60.1k★) – React/MDX stack heavier than needed.
+- **VuePress** (22.8k★) / **Docsify** (29.5k★) – weaker plugin ecosystem for versioning & search.
 
    *Note: MkDocs Material has 23.4k★, showing solid community adoption despite being more specialized.*
 
 ## Consequences
 Positive
-• Fast setup; minimal config files committed.
-• Automatic multi-version docs via `mike release` CI step.
-• Clean main branch; build artifacts kept in Pages storage.
+- Fast setup; minimal config files committed.
+- Automatic multi-version docs via `mike release` CI step.
+- Clean main branch; build artifacts kept in Pages storage.
 
 Neutral
-• Python runtime added to CI image.
+- Python runtime added to CI image.
 
 Negative
-• Theme and plugins occasionally release breaking changes – must track MKDocs Material changelog.
-• `mike` keeps each version in separate branch under the hood, adding some repository refs to maintain.
+- Theme and plugins occasionally release breaking changes – must track MKDocs Material changelog.
+- `mike` keeps each version in separate branch under the hood, adding some repository refs to maintain.
