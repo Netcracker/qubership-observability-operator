@@ -2,6 +2,16 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>Netcracker/renovate-config:base",
-    "github>Netcracker/renovate-config:github-actions"
+    "github>Netcracker/renovate-config:github-actions",
+    "github>Netcracker/renovate-config:automerge"
+  ],
+  "packageRules": [
+    {
+      "description": [
+        "Keep automerge scoped to GitHub Actions workflow dependencies"
+      ],
+      "matchManagers": ["!github-actions"],
+      "automerge": false
+    }
   ]
 }

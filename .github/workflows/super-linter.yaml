@@ -25,12 +25,18 @@ on:
         default: false
         required: false
         description: "Lint all codebase"
-permissions:
-  contents: read
+
+concurrency:
+  group: lint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
 
 jobs:
   prepare-configs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - name: "Get the common linters configuration"
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -96,3 +102,38 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BRANCH: ${{ github.event.pull_request.base.ref || github.event.push.ref }}
 
+  internal-links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check internal links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
+        with:
+          args: >-
+            './**/*.md'
+            --exclude '^https?://'
+            --include '^https://github.com/Netcracker/qubership-observability-operator/'
+            --verbose
+            --no-progress
+          fail: true
+
+  lint-gate:
+    name: Lint Gate
+    if: ${{ always() && github.event_name == 'pull_request' }}
+    needs:
+      - run-lint
+      - internal-links
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Require lint validation
+        if: >-
+          needs.run-lint.result != 'success' ||
+          needs.internal-links.result != 'success'
+        run: exit 1
